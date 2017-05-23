@@ -4,11 +4,19 @@ import java.awt.event.*;
 
 public class FinalDriver extends JApplet implements ActionListener, KeyListener
 {
-	
+	Timer time;
 	public void init()
 	{
-		
+		getContentPane(new DrawingPanel());
+		time = new Timer(10, this);
 	}//end init
+	public class DrawingPanel extends JPanel
+	{
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);
+		}//end paint component
+	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
 	{
 	}//end action performed
