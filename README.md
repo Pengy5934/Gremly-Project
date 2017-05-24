@@ -2,6 +2,6 @@
 Emily Boy and Maggie Girl (Fight for BKell's Heart)
 
 JOBS: 
-Emily - What jobs do you want?
-Maggie - What jobs do you want?
+Emily - Environment and Collision
+Maggie - Sprite design and movement
 BKell - Sprite animation and combat
