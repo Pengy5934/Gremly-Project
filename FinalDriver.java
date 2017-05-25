@@ -5,10 +5,13 @@ import java.awt.event.*;
 public class FinalDriver extends JApplet implements ActionListener, KeyListener
 {
 	Timer time;
+	Player emily;
+	Player maggie;
 	public void init()
 	{
 		getContentPane(new DrawingPanel());
 		time = new Timer(10, this);
+		emily = new Player(50, 400, /*Image[]*/);
 	}//end init
 	public class DrawingPanel extends JPanel
 	{
