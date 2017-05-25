@@ -7,7 +7,7 @@ public class Player
 	{
 
 	}//end constructor
-	public void draw(Grpahics g)
+	public void draw(Graphics g)
 	{
 	}//end draw
 	public void walkLeft()
