@@ -9,6 +9,7 @@ public class Player
 	}//end constructor
 	public void draw(Graphics g)
 	{
+		//g.drawImage(img, x, y, this);
 	}//end draw
 	public void walkLeft()
 	{
@@ -19,4 +20,8 @@ public class Player
 	public void jump()
 	{
 	}//end jump
+	public void thrust()
+	{
+		
+	}//end thrust
 }//end class
