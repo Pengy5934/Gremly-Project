@@ -22,7 +22,6 @@ public class Platform
 	}//end draw
 	public void floor()
 	{
-		//https://www.youtube.com/watch?v=UnU7DJXiMAQ
 		if (player.getX() + player.getWidth() > x && player.getX() < x + width)
 		{
 			if (player.getY() + player.getHeight() >= y && player.getY() + player.getHeight() <= y + height)
