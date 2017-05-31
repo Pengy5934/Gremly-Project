@@ -23,5 +23,27 @@ public class Platform
 	public void floor()
 	{
 		//https://www.youtube.com/watch?v=UnU7DJXiMAQ
+		if (player.getX() + player.getWidth() > x && player.getX() < x + width)
+		{
+			if (player.getY() + player.getHeight() >= y && player.getY() + player.getHeight() <= y + height)
+			{
+				player.stopDown();
+				player.moveUp(-((player.getY() + player.getHeight()) - y));
+			}//end if
+		}//end if
 	}//end thrust
+	public void wall()
+	{
+		if (player.getY() + player.getHeight() > y && player.getY() < y + height)
+		{
+			if (player.getX() <= x + width && player.getX() >= x)
+			{
+				player.stopLeft();
+				player.moveLeft((x + width)player.getX());
+			}//end if
+			if ()//above accounts for leftward motion, now do right
+			{
+			}//end if
+		}//end if
+	}//end wall
 }//end attack
