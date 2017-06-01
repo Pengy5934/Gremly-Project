@@ -1,35 +1,57 @@
 import java.awt.*;
 
+
 public class Player
 {
 	int x, y, width, height, velox, veloy, speed;
-	boolean up = true, down = false, left = true, right = true;
-	Image[] img = new Image[9];
-	public Player(int xIn, int yIn, int widthIn, int heightIn, Image[] imgIn)
+	boolean up = true, down = false, left = true, right = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
+	Image playerStand;
+	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn)
 	{
 		x = xIn;
 		y = yIn;
 		width = widthIn;
 		height = heightIn;
-		for (int i = 0; i < imgIn.length; i++)
-		{
-			img[i] = imgIn[i];
-		}//end for loop
+		playerStand = imgIn;
 	}//end constructor
 	public void draw(Graphics g)
 	{
+		if (up == false && down == false && left == false && right == false)
+		{
+			g.drawImage(playerStand, x, y, null);
+		}//end if
 	}//end draw
 	public void walkLeft()
 	{
+		if (left)
+		{
+			x -= 1;
+			animateLeft = true;
+			animateRight = false;
+		}//end if
 	}//end run Left
 	public void walkRight()
 	{
+		if (right)
+		{
+			x += 1;
+			animateRight = true;
+			animateLeft = false;
+		}//end if
 	}//end walk right
 	public void jump()
 	{
+		if (up)
+		{
+			y -= 2;
+		}//end if
 	}//end jump
 	public void fall()
 	{
+		if (down)
+		{
+			y += 2;
+		}//end if
 	}//end fall
 	public void stopDown()
 	{
