@@ -7,28 +7,34 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Timer time;
 	Player emily;
 	Player maggie;
-	Image maggieStand = getImage(getDocumentBase(), "maggieStand");
-	Image emilyStand = getImage(getDocumentBase(), "maggieStand");
+	Platform bottom;
+	Image maggieStand;
+	Image emilyStand;
 	Image [] emilyLeft = new Image[9];
 	Image [] maggieLeft = new Image[9];
+	Platform[] floors = new Platform[10];
+	Platform[] walls = new Platform[5];
 	public void init()
 	{
 		setContentPane(new DrawingPanel());
 		time = new Timer(10, this);
 
-		for (int i = 0; i < emilyLeft.length; i++)
-		{
-			emilyLeft[i] = getImage(getDocumentBase(), "");
-		}//end for loop
+		emily = new Player(50, 400, 90, 80, emilyStand);
+		emilyStand = getImage(getDocumentBase(), "maggieStand.png");
+		maggie = new Player(900, 400, 90, 80, maggieStand);
+		maggieStand = getImage(getDocumentBase(), "maggieStand.png");
+		bottom = new Platform(0, 900, 1000, 100, 1);
 
-		emily = new Player(50, 400, 50, 100, emilyStand);
-		maggie = new Player(900, 400, 50, 100, maggieStand);
+		addKeyListener(this);
+		setFocusable(true);
 	}//end init
 	public class DrawingPanel extends JPanel
 	{
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
+			maggie.draw(g);
+			bottom.floor(maggie);
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
@@ -41,7 +47,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	{
 		if (e.getKeyCode() == KeyEvent.VK_UP)
 		{
-			emily.jump();
+			maggie.jump();
 		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
