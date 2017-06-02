@@ -4,7 +4,7 @@ import java.awt.*;
 public class Player
 {
 	int x, y, width, height, velox, veloy, speed;
-	boolean up = true, down = false, left = true, right = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
+	boolean canMoveUp = true, canMoveDown = false, canMoveLeft = true, canMoveRight = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
 	Image playerStand;
 	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn)
 	{
@@ -16,14 +16,14 @@ public class Player
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		if (up == false && down == false && left == false && right == false)
+		if (canMoveUp == true && canMoveDown == false)
 		{
 			g.drawImage(playerStand, x, y, null);
 		}//end if
 	}//end draw
 	public void walkLeft()
 	{
-		if (left)
+		if (canMoveLeft)
 		{
 			x -= 1;
 			animateLeft = true;
@@ -32,7 +32,7 @@ public class Player
 	}//end run Left
 	public void walkRight()
 	{
-		if (right)
+		if (canMoveRight)
 		{
 			x += 1;
 			animateRight = true;
@@ -41,33 +41,33 @@ public class Player
 	}//end walk right
 	public void jump()
 	{
-		if (up)
+		if (canMoveUp)
 		{
 			y -= 2;
 		}//end if
 	}//end jump
 	public void fall()
 	{
-		if (down)
+		if (canMoveDown)
 		{
 			y += 2;
 		}//end if
 	}//end fall
 	public void stopDown()
 	{
-		down = false;
+		canMoveDown = false;
 	}//end stop down
 	public void stopUp()
 	{
-		up = false;
+		canMoveUp = false;
 	}//end stop up
 	public void stopLeft()
 	{
-		left = false;
+		canMoveLeft = false;
 	}//end stop left
 	public void stopRight()
 	{
-		right = false;
+		canMoveRight = false;
 	}//end stop right
 	public void moveUp(int m)
 	{
