@@ -31,7 +31,7 @@ public class Platform
 				player.moveUp(-((player.getY() + player.getHeight()) - platY));
 			}//end if
 		}//end if
-	}//end thrust
+	}//end floor
 	public void wall(Player playerImport)
 	{
 		player = playerImport;
@@ -56,4 +56,9 @@ public class Platform
 			}//end if
 		}//end if
 	}//end ceiling
-}//end class
+	public void lasergone()
+	{
+		platX = 2000;
+		platY = 2000;
+	}
+}//end CL
