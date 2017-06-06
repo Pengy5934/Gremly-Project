@@ -1,26 +1,60 @@
 import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.Toolkit;
 
 
-public class Player
+public class Player implements ActionListener
 {
-	int x, y, width, height, velox, veloy, speed;
+	int x, y, width, height, velox, veloy, speed, gameTimer = 0;
+	int frame = 1, frameHolder;
+	String pictureName, playerName = "";
 	boolean canMoveUp = true, canMoveDown = false, canMoveLeft = true, canMoveRight = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
 	Image playerStand;
-	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn)
+	Timer time;
+	Toolkit tk;
+	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn, String name)
 	{
 		x = xIn;
 		y = yIn;
 		width = widthIn;
 		height = heightIn;
 		playerStand = imgIn;
+		playerName = name;
+		time = new Timer(10, this);
+		tk = Toolkit.getDefaultToolkit();
+
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		if (canMoveUp == true && canMoveDown == false)
+		if (canMoveUp == true && canMoveDown == false && animateRight == false && animateLeft == false)
 		{
 			g.drawImage(playerStand, x, y, null);
 		}//end if
+		if (canMoveUp == true && canMoveDown == false && animateRight == true && animateLeft == false)
+		{
+			String pictureName = playerName + "Right" + frame + ".png";
+			frame += 1;
+			gameTimer++;
+			if (gameTimer % 2 == 0)
+			{
+				g.drawImage(tk.getImage(pictureName), x, y, null);
+			}
+			else
+			{
+				g.drawImage(tk.getImage((playerName + "Right" + frameHolder + ".png")), x, y, null);
+			}//end if
+			if (frame > 9)
+			{
+				frame = 1;
+			}//end if
+			frameHolder = frame;
+		}//end if
 	}//end draw
+	public void actionPerformed(ActionEvent e)
+	{
+
+	}//end action performed
 	public void walkLeft()
 	{
 		if (canMoveLeft)
@@ -34,7 +68,7 @@ public class Player
 	{
 		if (canMoveRight)
 		{
-			x += 1;
+			x += 2;
 			animateRight = true;
 			animateLeft = false;
 		}//end if
@@ -105,3 +139,4 @@ public class Player
 		return height;
 	}//end get height
 }//end class
+
