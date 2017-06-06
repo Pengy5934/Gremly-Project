@@ -1,59 +1,108 @@
 
 import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
 
-public class Platform
+
+public class Player
 {
-	Player player;
-	int platX, platY;
-	Image i;
-	String type;
-	FinalDriver fd;
-	public Platform(int xIn, int yIn, Image I, FinalDriver fd)
+	int x, y, width, height, velox, veloy, speed;
+	boolean up = true, down = false, left = true, right = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
+	Image playerStand;
+	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn)
 	{
-		platX = xIn;
-		platY = yIn;
-		this.fd = fd;
+		x = xIn;
+		y = yIn;
+		width = widthIn;
+		height = heightIn;
+		playerStand = imgIn;
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		g.drawImage(i, platX, platY, null);
+		if (up == false && down == false && left == false && right == false)
+		{
+			g.drawImage(playerStand, x, y, null);
+		}//end if
 	}//end draw
-	public void floor(Player playerImport)
+	public void walkLeft()
 	{
-		player = playerImport;
-		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
+		if (left)
 		{
-			if (player.getY() + player.getHeight() >= platY && player.getY() + player.getHeight() <= platY + i.getHeight(fd))
-			{
-				player.stopDown();
-				player.moveUp(-((player.getY() + player.getHeight()) - platY));
-			}//end if
+			x -= 1;
+			animateLeft = true;
+			animateRight = false;
 		}//end if
+	}//end run Left
+	public void walkRight()
+	{
+		if (right)
+		{
+			x += 1;
+			animateRight = true;
+			animateLeft = false;
+		}//end if
+	}//end walk right
+	public void jump()
+	{
+		if (up)
+		{
+			y -= 2;
+		}//end if
+	}//end jump
+	public void fall()
+	{
+		if (down)
+		{
+			y += 2;
+		}//end if
+	}//end fall
+	public void stopDown()
+	{
+		down = false;
+	}//end stop down
+	public void stopUp()
+	{
+		up = false;
+	}//end stop up
+	public void stopLeft()
+	{
+		left = false;
+	}//end stop left
+	public void stopRight()
+	{
+		right = false;
+	}//end stop right
+	public void moveUp(int m)
+	{
+		y -= m;
+	}//end move up
+	public void moveDown(int m)
+	{
+		y += m;
+	}//end move down
+	public void moveRight(int m)
+	{
+		x += m;
+	}//end move right
+	public void moveLeft(int m)
+	{
+		x -= m;
+	}//end move left
+	public void thrust()
+	{
 	}//end thrust
-	public void wall(Player playerImport)
+	public int getX()
 	{
-		player = playerImport;
-		if (player.getY() + player.getHeight() > platY && player.getY() < platY + i.getHeight(fd))
-		{
-			if (player.getX() <= platX + i.getWidth(fd) && player.getX() >= platX)
-			{
-				player.stopLeft();
-				player.moveLeft((platX + i.getWidth(fd)) + player.getX());
-			}//end if
-		}//end if
-	}//end wall
-	public void ceiling(Player playerImport)
+		return x;
+	}//end get x
+	public int getY()
 	{
-		player = playerImport;
-		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
-		{
-			if (player.getY() > platY + i.getHeight(fd) && player.getY() > platY + i.getHeight(fd))
-			{
-				player.stopUp();
-				player.moveDown((platY + i.getHeight(fd)) - player.getY());
-			}//end if
-		}//end if
-	}//end ceiling
+		return y;
+	}//end get y
+	public int getWidth()
+	{
+		return width;
+	}//end get width
+	public int getHeight()
+	{
+		return height;
+	}//end get height
 }//end class
