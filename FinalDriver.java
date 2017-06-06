@@ -19,10 +19,10 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		setContentPane(new DrawingPanel());
 		time = new Timer(10, this);
 
-		emily = new Player(50, 400, 90, 80, emilyStand);
 		emilyStand = getImage(getDocumentBase(), "maggieStand.png");
-		maggie = new Player(900, 400, 90, 80, maggieStand);
+		emily = new Player(50, 40, 90, 80, emilyStand, "Emily");
 		maggieStand = getImage(getDocumentBase(), "maggieStand.png");
+		maggie = new Player(900, 400, 90, 80, maggieStand, "Maggie");
 		bottom = new Platform(0, 900, 1000, 100, 1);
 
 		addKeyListener(this);
@@ -34,7 +34,6 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		{
 			super.paintComponent(g);
 			maggie.draw(g);
-			bottom.floor(maggie);
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
@@ -45,12 +44,14 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	}//end key typed
 	public void keyPressed(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_UP)
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
-			maggie.jump();
+			maggie.walkRight();
+			repaint();
 		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
 	{
 	}//end key released
 }//end public class
+
