@@ -1,142 +1,59 @@
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Toolkit;
 
-
-public class Player implements ActionListener
+public class Platform
 {
-	int x, y, width, height, velox, veloy, speed, gameTimer = 0;
-	int frame = 1, frameHolder;
-	String pictureName, playerName = "";
-	boolean canMoveUp = true, canMoveDown = false, canMoveLeft = true, canMoveRight = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
-	Image playerStand;
-	Timer time;
-	Toolkit tk;
-	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn, String name)
+	Player player;
+	int platX, platY;
+	Image i;
+	String type;
+	FinalDriver fd;
+	public Platform(int xIn, int yIn, Image I, FinalDriver fd)
 	{
-		x = xIn;
-		y = yIn;
-		width = widthIn;
-		height = heightIn;
-		playerStand = imgIn;
-		playerName = name;
-		time = new Timer(10, this);
-		tk = Toolkit.getDefaultToolkit();
-
+		platX = xIn;
+		platY = yIn;
+		this.fd = fd;
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		if (canMoveUp == true && canMoveDown == false && animateRight == false && animateLeft == false)
-		{
-			g.drawImage(playerStand, x, y, null);
-		}//end if
-		if (canMoveUp == true && canMoveDown == false && animateRight == true && animateLeft == false)
-		{
-			String pictureName = playerName + "Right" + frame + ".png";
-			frame += 1;
-			gameTimer++;
-			if (gameTimer % 2 == 0)
-			{
-				g.drawImage(tk.getImage(pictureName), x, y, null);
-			}
-			else
-			{
-				g.drawImage(tk.getImage((playerName + "Right" + frameHolder + ".png")), x, y, null);
-			}//end if
-			if (frame > 9)
-			{
-				frame = 1;
-			}//end if
-			frameHolder = frame;
-		}//end if
+		g.drawImage(i, platX, platY, null);
 	}//end draw
-	public void actionPerformed(ActionEvent e)
+	public void floor(Player playerImport)
 	{
-
-	}//end action performed
-	public void walkLeft()
-	{
-		if (canMoveLeft)
+		player = playerImport;
+		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
 		{
-			x -= 1;
-			animateLeft = true;
-			animateRight = false;
+			if (player.getY() + player.getHeight() >= platY && player.getY() + player.getHeight() <= platY + i.getHeight(fd))
+			{
+				player.stopDown();
+				player.moveUp(-((player.getY() + player.getHeight()) - platY));
+			}//end if
 		}//end if
-	}//end run Left
-	public void walkRight()
-	{
-		if (canMoveRight)
-		{
-			x += 2;
-			animateRight = true;
-			animateLeft = false;
-		}//end if
-	}//end walk right
-	public void jump()
-	{
-		if (canMoveUp)
-		{
-			y -= 2;
-		}//end if
-	}//end jump
-	public void fall()
-	{
-		if (canMoveDown)
-		{
-			y += 2;
-		}//end if
-	}//end fall
-	public void stopDown()
-	{
-		canMoveDown = false;
-	}//end stop down
-	public void stopUp()
-	{
-		canMoveUp = false;
-	}//end stop up
-	public void stopLeft()
-	{
-		canMoveLeft = false;
-	}//end stop left
-	public void stopRight()
-	{
-		canMoveRight = false;
-	}//end stop right
-	public void moveUp(int m)
-	{
-		y -= m;
-	}//end move up
-	public void moveDown(int m)
-	{
-		y += m;
-	}//end move down
-	public void moveRight(int m)
-	{
-		x += m;
-	}//end move right
-	public void moveLeft(int m)
-	{
-		x -= m;
-	}//end move left
-	public void thrust()
-	{
 	}//end thrust
-	public int getX()
+	public void wall(Player playerImport)
 	{
-		return x;
-	}//end get x
-	public int getY()
+		player = playerImport;
+		if (player.getY() + player.getHeight() > platY && player.getY() < platY + i.getHeight(fd))
+		{
+			if (player.getX() <= platX + i.getWidth(fd) && player.getX() >= platX)
+			{
+				player.stopLeft();
+				player.moveLeft((platX + i.getWidth(fd)) + player.getX());
+			}//end if
+		}//end if
+	}//end wall
+	public void ceiling(Player playerImport)
 	{
-		return y;
-	}//end get y
-	public int getWidth()
-	{
-		return width;
-	}//end get width
-	public int getHeight()
-	{
-		return height;
-	}//end get height
+		player = playerImport;
+		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
+		{
+			if (player.getY() > platY + i.getHeight(fd) && player.getY() > platY + i.getHeight(fd))
+			{
+				player.stopUp();
+				player.moveDown((platY + i.getHeight(fd)) - player.getY());
+			}//end if
+		}//end if
+	}//end ceiling
 }//end class
-
