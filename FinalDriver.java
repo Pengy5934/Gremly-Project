@@ -10,8 +10,6 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Platform bottom;
 	Image maggieStand;
 	Image emilyStand;
-	Platform[] floors = new Platform[10];
-	Platform[] walls = new Platform[5];
 	public void init()
 	{
 		setContentPane(new DrawingPanel());
