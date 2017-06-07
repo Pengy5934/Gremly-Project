@@ -19,8 +19,28 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		emily = new Player(50, 40, 90, 80, emilyStand, "Emily");
 		maggieStand = getImage(getDocumentBase(), "maggieStand.png");
 		maggie = new Player(900, 400, 90, 80, maggieStand, "Maggie");
-		bottom = new Platform(0, 900, 1000, 100, 1);
-
+		floor1a = getImage(getDocumentBase(), "floor1.png");
+		floor1b = getImage(getDocumentBase(), "floor1.png");
+		floor1c = getImage(getDocumentBase(), "floor1.png");
+		floor1d = getImage(getDocumentBase(), "floor1.png");
+		floor2a = getImage(getDocumentBase(), "floor2.png");
+		floor2b = getImage(getDocumentBase(), "floor2.png");
+		floor2c = getImage(getDocumentBase(), "floor2.png");
+		floor4a = getImage(getDocumentBase(), "floor4.png");
+		floor6a = getImage(getDocumentBase(), "floor6.png");
+		floor6b = getImage(getDocumentBase(), "floor6.png");
+		floor8a = getImage(getDocumentBase(), "floor8.png");
+		Pfloor1a = new Platform(200, 220, floor1a, this);
+		Pfloor1b = new Platform(1200, 220, floor1b, this);
+		Pfloor1c = new Platform(0, 820, floor1c, this);
+		Pfloor1d = new Platform(0, 820, floor1d, this);
+		Pfloor2a = new Platform(0, 820, floor2a, this);
+		Pfloor2b = new Platform(0, 820, floor2b, this);
+		Pfloor2c = new Platform(0, 820, floor2c, this);
+		Pfloor4a = new Platform(0, 820, floor4a, this);
+		Pfloor6a = new Platform(0, 820, floor6a, this);
+		Pfloor6b = new Platform(0, 820, floor6b, this);
+		Pfloor8a = new Platform(0, 820, floor8a, this);
 		addKeyListener(this);
 		setFocusable(true);
 	}//end init
@@ -30,6 +50,17 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		{
 			super.paintComponent(g);
 			maggie.draw(g);
+			Pfloor1a.draw(g);
+			Pfloor1b.draw(g);
+			Pfloor1c.draw(g);
+			Pfloor1d.draw(g);
+			Pfloor2a.draw(g);
+			Pfloor2b.draw(g);
+			Pfloor2c.draw(g);
+			Pfloor4a.draw(g);
+			Pfloor6a.draw(g);
+			Pfloor6b.draw(g);
+			Pfloor8a.draw(g);
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
