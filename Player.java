@@ -49,7 +49,38 @@ public class Player implements ActionListener
 				frame = 1;
 			}//end if
 			frameHolder = frame;
-		}//end if
+		}//end walk right animation
+		if (canMoveUp == true && canMoveDown == false && animateRight == false && animateLeft == true)
+		{
+			String pictureName = playerName + "Left" + frame + ".png";
+			frame += 1;
+			gameTimer++;
+			if (gameTimer % 2 == 0)
+			{
+				g.drawImage(tk.getImage(pictureName), x, y, null);
+			}
+			else
+			{
+				g.drawImage(tk.getImage(playerName + "Left" + frameHolder + ".png"), x, y, null);
+			}//end if
+			if (frame > 8)
+			{
+				frame = 2;
+			}//end if
+			frameHolder = frame;
+		}//end left walking animation
+		if (canMoveUp == true && canMoveDown == true)
+		{
+			String pictureName = playerName + "Jump" + frame + ".png";
+			if (frame <= 5)
+				frame++;
+			if (frame == 6)
+			{
+				frame = 1;
+				canMoveDown = false;
+			}//end if
+			g.drawImage(tk.getImage(pictureName), x, y, null);
+		}//end jump animation
 	}//end draw
 	public void actionPerformed(ActionEvent e)
 	{
@@ -59,7 +90,7 @@ public class Player implements ActionListener
 	{
 		if (canMoveLeft)
 		{
-			x -= 1;
+			x -= 10;
 			animateLeft = true;
 			animateRight = false;
 		}//end if
@@ -68,7 +99,7 @@ public class Player implements ActionListener
 	{
 		if (canMoveRight)
 		{
-			x += 2;
+			x += 10;
 			animateRight = true;
 			animateLeft = false;
 		}//end if
@@ -78,6 +109,7 @@ public class Player implements ActionListener
 		if (canMoveUp)
 		{
 			y -= 2;
+			canMoveDown = true;
 		}//end if
 	}//end jump
 	public void fall()
