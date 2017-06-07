@@ -1,30 +1,63 @@
-
 import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.Toolkit;
 
 
-public class Player
+public class Player implements ActionListener
 {
-	int x, y, width, height, velox, veloy, speed;
-	boolean up = true, down = false, left = true, right = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
+	int x, y, width, height, velox, veloy, speed, gameTimer = 0;
+	int frame = 1, frameHolder;
+	String pictureName, playerName = "";
+	boolean canMoveUp = true, canMoveDown = false, canMoveLeft = true, canMoveRight = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
 	Image playerStand;
-	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn)
+	Timer time;
+	Toolkit tk;
+	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn, String name)
 	{
 		x = xIn;
 		y = yIn;
 		width = widthIn;
 		height = heightIn;
 		playerStand = imgIn;
+		playerName = name;
+		time = new Timer(10, this);
+		tk = Toolkit.getDefaultToolkit();
+
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		if (up == false && down == false && left == false && right == false)
+		if (canMoveUp == true && canMoveDown == false && animateRight == false && animateLeft == false)
 		{
 			g.drawImage(playerStand, x, y, null);
 		}//end if
+		if (canMoveUp == true && canMoveDown == false && animateRight == true && animateLeft == false)
+		{
+			String pictureName = playerName + "Right" + frame + ".png";
+			frame += 1;
+			gameTimer++;
+			if (gameTimer % 2 == 0)
+			{
+				g.drawImage(tk.getImage(pictureName), x, y, null);
+			}
+			else
+			{
+				g.drawImage(tk.getImage((playerName + "Right" + frameHolder + ".png")), x, y, null);
+			}//end if
+			if (frame > 8)
+			{
+				frame = 1;
+			}//end if
+			frameHolder = frame;
+		}//end if
 	}//end draw
+	public void actionPerformed(ActionEvent e)
+	{
+
+	}//end action performed
 	public void walkLeft()
 	{
-		if (left)
+		if (canMoveLeft)
 		{
 			x -= 1;
 			animateLeft = true;
@@ -33,42 +66,42 @@ public class Player
 	}//end run Left
 	public void walkRight()
 	{
-		if (right)
+		if (canMoveRight)
 		{
-			x += 1;
+			x += 2;
 			animateRight = true;
 			animateLeft = false;
 		}//end if
 	}//end walk right
 	public void jump()
 	{
-		if (up)
+		if (canMoveUp)
 		{
 			y -= 2;
 		}//end if
 	}//end jump
 	public void fall()
 	{
-		if (down)
+		if (canMoveDown)
 		{
 			y += 2;
 		}//end if
 	}//end fall
 	public void stopDown()
 	{
-		down = false;
+		canMoveDown = false;
 	}//end stop down
 	public void stopUp()
 	{
-		up = false;
+		canMoveUp = false;
 	}//end stop up
 	public void stopLeft()
 	{
-		left = false;
+		canMoveLeft = false;
 	}//end stop left
 	public void stopRight()
 	{
-		right = false;
+		canMoveRight = false;
 	}//end stop right
 	public void moveUp(int m)
 	{
