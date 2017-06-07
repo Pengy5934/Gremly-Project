@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -6,59 +5,70 @@ import java.awt.event.*;
 public class Platform
 {
 	Player player;
-	int platX, platY;
-	Image i;
+	int x, y, height, width, level;
 	String type;
-	FinalDriver fd;
-	public Platform(int xIn, int yIn, Image I, FinalDriver fd)
+	public Platform(int xIn, int yIn, int widthIn, int heightIn, int levelIn)
 	{
-		platX = xIn;
-		platY = yIn;
-		this.fd = fd;
+		x = xIn;
+		y = yIn;
+		width = widthIn;
+		height = heightIn;
+		level = levelIn;
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		g.drawImage(i, platX, platY, null);
+		g.fillRect(x, y, height, width);
 	}//end draw
 	public void floor(Player playerImport)
 	{
 		player = playerImport;
-		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
+		if (player.getX() + player.getWidth() > x && player.getX() < x + width)
 		{
-			if (player.getY() + player.getHeight() >= platY && player.getY() + player.getHeight() <= platY + i.getHeight(fd))
+			if (player.getY() + player.getHeight() >= y && player.getY() + player.getHeight() <= y + height)
 			{
 				player.stopDown();
-				player.moveUp(-((player.getY() + player.getHeight()) - platY));
+				player.moveUp(-((player.getY() + player.getHeight()) - y));
 			}//end if
 		}//end if
 	}//end floor
 	public void wall(Player playerImport)
 	{
 		player = playerImport;
-		if (player.getY() + player.getHeight() > platY && player.getY() < platY + i.getHeight(fd))
+		if (player.getY() + player.getHeight() > y && player.getY() < y + height)
 		{
-			if (player.getX() <= platX + i.getWidth(fd) && player.getX() >= platX)
+			if (player.getX() <= x + width && player.getX() >= x)
 			{
 				player.stopLeft();
-				player.moveLeft((platX + i.getWidth(fd)) + player.getX());
+				player.moveLeft((x + width) + player.getX());
 			}//end if
 		}//end if
 	}//end wall
 	public void ceiling(Player playerImport)
 	{
 		player = playerImport;
-		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
+		if (player.getX() + player.getWidth() > x && player.getX() < x + width)
 		{
-			if (player.getY() > platY + i.getHeight(fd) && player.getY() > platY + i.getHeight(fd))
+			if (player.getY() > y + height && player.getY() > y + height)
 			{
 				player.stopUp();
-				player.moveDown((platY + i.getHeight(fd)) - player.getY());
+				player.moveDown((y + height) - player.getY());
 			}//end if
 		}//end if
 	}//end ceiling
-	public void lasergone()
+	public void level2()
 	{
-		platX = 2000;
-		platY = 2000;
-	}
-}//end CL
+		if (level == 1)
+		{
+			x = 1000;
+			y = 1000;
+		}//end if
+	}//end level 2
+	public void level3()
+	{
+		if (level == 2)
+		{
+			x = 1000;
+			y = 1000;
+		}//end if
+	}//end level 3
+}//end platform
