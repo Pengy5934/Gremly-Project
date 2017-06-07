@@ -7,9 +7,21 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Timer time;
 	Player emily;
 	Player maggie;
-	Platform bottom;
+	Platform Pwall1a, Pwall3a;
+	Platform Pfloor1a, Pfloor1b, Pfloor1c, Pfloor1d;
+	Platform Pfloor2a, Pfloor2b, Pfloor2c;
+	Platform Pfloor4a;
+	Platform Pfloor6a, Pfloor6b;
+	Platform Pfloor8a;
 	Image maggieStand;
 	Image emilyStand;
+	Image wall1a, wall3a;
+	Image floor1a, floor1b, floor1c, floor1d;
+	Image floor2a, floor2b, floor2c;
+	Image floor4a;
+	Image floor6a, floor6b;
+	Image floor8a;
+	Image laser1, laser3;
 	public void init()
 	{
 		setContentPane(new DrawingPanel());
