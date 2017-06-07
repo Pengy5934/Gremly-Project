@@ -34,6 +34,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
 	{
+		repaint();
 	}//end action performed
 	public void keyTyped(KeyEvent e)
 	{
@@ -50,9 +51,13 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			maggie.walkLeft();
 			repaint();
 		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			maggie.jump();
+			repaint();
+		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
 	{
 	}//end key released
 }//end public class
-
