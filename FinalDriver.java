@@ -10,8 +10,6 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Platform bottom;
 	Image maggieStand;
 	Image emilyStand;
-	Image [] emilyLeft = new Image[9];
-	Image [] maggieLeft = new Image[9];
 	Platform[] floors = new Platform[10];
 	Platform[] walls = new Platform[5];
 	public void init()
@@ -47,6 +45,11 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
 			maggie.walkRight();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			maggie.walkLeft();
 			repaint();
 		}//end if
 	}//end key pressed
