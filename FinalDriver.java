@@ -46,6 +46,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		floor6a = getImage(getDocumentBase(), "floor6.png");
 		floor6b = getImage(getDocumentBase(), "floor6.png");
 		floor8a = getImage(getDocumentBase(), "floor8.png");
+		wall1a = getImage(getDocumentBase(), "brickwall1.png");
+		wall3a = getImage(getDocumentBase(), "brickwall3.png");
 		Pbackground = new Platform(0, 0, background, this);
 		Pfloor1a = new Platform(150, 220, floor1a, this);
 		Pfloor1b = new Platform(900, 220, floor1b, this);
@@ -58,6 +60,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		Pfloor6a = new Platform(150, 460, floor6a, this);
 		Pfloor6b = new Platform(150, 700, floor6b, this);
 		Pfloor8a = new Platform(0, 820, floor8a, this);
+		Pwall1a = new Platform(590, 0, wall1a,this);
+		Pwall3a = new Platform(590, 480, wall3a,this);
 		addKeyListener(this);
 		setFocusable(true);
 	}//end init
@@ -79,6 +83,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Pfloor6a.draw(g);
 			Pfloor6b.draw(g);
 			Pfloor8a.draw(g);
+			Pwall1a.draw(g);
+			Pwall3a.draw(g);
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
