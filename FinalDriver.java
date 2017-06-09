@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -9,6 +8,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Player emily;
 	Player maggie;
 	Platform Pwall1a, Pwall3a;
+	Platform Plaser1a, Plaser1b, Plaser3a;
 	Platform Pfloor1a, Pfloor1b, Pfloor1c, Pfloor1d;
 	Platform Pfloor2a, Pfloor2b, Pfloor2c;
 	Platform Pfloor4a;
@@ -23,8 +23,9 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Image floor4a;
 	Image floor6a, floor6b;
 	Image floor8a;
-	Image laser1, laser3;
+	Image laser1a, laser1b, laser3a;
 	Image background;
+	Image button, leverL, leverR;
 	public void init()
 	{
 		setContentPane(new DrawingPanel());
@@ -48,6 +49,9 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		floor8a = getImage(getDocumentBase(), "floor8.png");
 		wall1a = getImage(getDocumentBase(), "brickwall1.png");
 		wall3a = getImage(getDocumentBase(), "brickwall3.png");
+		laser1a = getImage(getDocumentBase(), "laserwall1.png");
+		laser1b = getImage(getDocumentBase(), "laserwall1.png");
+		laser3a = getImage(getDocumentBase(), "laserwall3.png");
 		Pbackground = new Platform(0, 0, background, this);
 		Pfloor1a = new Platform(150, 220, floor1a, this);
 		Pfloor1b = new Platform(900, 220, floor1b, this);
@@ -62,6 +66,10 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		Pfloor8a = new Platform(0, 820, floor8a, this);
 		Pwall1a = new Platform(590, 0, wall1a,this);
 		Pwall3a = new Platform(590, 480, wall3a,this);
+		Plaser1a = new Platform(150, 480, laser1a, this);
+		Plaser1b = new Platform(1030, 480, laser1b, this);
+		Plaser3a = new Platform(590, 120, laser3a, this);
+
 		addKeyListener(this);
 		setFocusable(true);
 	}//end init
@@ -85,6 +93,9 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Pfloor8a.draw(g);
 			Pwall1a.draw(g);
 			Pwall3a.draw(g);
+			Plaser1a.draw(g);
+			Plaser1b.draw(g);
+			Plaser3a.draw(g);
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
