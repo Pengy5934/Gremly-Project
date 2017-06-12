@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -14,6 +15,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Platform Pfloor4a;
 	Platform Pfloor6a, Pfloor6b;
 	Platform Pfloor8a;
+	Platform Pbutton1, Pbutton2, Plever1, Plever2;
 	Platform Pbackground;
 	Image maggieStand;
 	Image emilyStand;
@@ -52,6 +54,9 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		laser1a = getImage(getDocumentBase(), "laserwall1.png");
 		laser1b = getImage(getDocumentBase(), "laserwall1.png");
 		laser3a = getImage(getDocumentBase(), "laserwall3.png");
+		button = getImage(getDocumentBase(), "button.png");
+		leverL = getImage(getDocumentBase(), "leverleft.png");
+		leverR = getImage(getDocumentBase(), "leverright.png");
 		Pbackground = new Platform(0, 0, background, this);
 		Pfloor1a = new Platform(150, 220, floor1a, this);
 		Pfloor1b = new Platform(900, 220, floor1b, this);
@@ -69,6 +74,10 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		Plaser1a = new Platform(150, 480, laser1a, this);
 		Plaser1b = new Platform(1030, 480, laser1b, this);
 		Plaser3a = new Platform(590, 120, laser3a, this);
+		Pbutton1 = new Platform(400, 450, button, this);
+		Pbutton2 = new Platform(700, 450, button, this);
+		Plever1 = new Platform(450, 530, leverL, this);
+		Plever2 = new Platform(650, 530, leverR, this);
 
 		addKeyListener(this);
 		setFocusable(true);
@@ -96,10 +105,15 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Plaser1a.draw(g);
 			Plaser1b.draw(g);
 			Plaser3a.draw(g);
+			Pbutton1.draw(g);
+			Pbutton2.draw(g);
+			Plever1.draw(g);
+			Plever2.draw(g);
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
 	{
+
 		repaint();
 	}//end action performed
 	public void keyTyped(KeyEvent e)
