@@ -27,7 +27,6 @@ public class Laser
 	}//end draw
 	public void button(Player player, Platform platform)
 	{
-
 		if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
 		{
 			if (player.getY() + player.getHeight() >= platY && player.getY() + player.getHeight() <= platY + i.getHeight(fd))
@@ -52,4 +51,14 @@ public class Laser
 			}//end if
 		}//end if
 	}//end lever
+	public void door(Player player, Platform platform)
+	{
+				if (player.getX() + player.getWidth() > platX && player.getX() < platX + i.getWidth(fd))
+				{
+					if (player.getY() + player.getHeight() >= platY && player.getY() + player.getHeight() <= platY + i.getHeight(fd))
+					{
+					gone = true;
+					}//end if
+		}//end if
+	}
 }
