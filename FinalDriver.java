@@ -9,13 +9,14 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Player emily;
 	Player maggie;
 	Platform Pwall1a, Pwall3a;
-	Platform Plaser1a, Plaser1b, Plaser3a;
+	Laser Plaser1a, Plaser1b, Plaser3a;
 	Platform Pfloor1a, Pfloor1b, Pfloor1c, Pfloor1d;
 	Platform Pfloor2a, Pfloor2b, Pfloor2c;
 	Platform Pfloor4a;
 	Platform Pfloor6a, Pfloor6b;
 	Platform Pfloor8a;
-	Platform Pbutton1, Pbutton2, Plever1, Plever2;
+	Button Pbutton1, Pbutton2;
+	Lever Plever1, Plever2;
 	Platform PdoorE, PdoorM;
 	Platform Pbackground;
 	Image maggieStand;
@@ -75,15 +76,16 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		Pfloor8a = new Platform(0, 820, floor8a, this);
 		Pwall1a = new Platform(590, 0, wall1a,this);
 		Pwall3a = new Platform(590, 480, wall3a,this);
-		Plaser1a = new Platform(150, 480, laser1a, this);
-		Plaser1b = new Platform(1030, 480, laser1b, this);
-		Plaser3a = new Platform(590, 120, laser3a, this);
-		Pbutton1 = new Platform(400, 450, button, this);
-		Pbutton2 = new Platform(700, 450, button, this);
-		Plever1 = new Platform(450, 530, leverL, this);
-		Plever2 = new Platform(650, 530, leverR, this);
+		Plaser1a = new Laser(150, 480, laser1a, this);
+		Plaser1b = new Laser(1030, 480, laser1b, this);
+		Plaser3a = new Laser(590, 120, laser3a, this);
+		Pbutton1 = new Button(400, 450, button, this);
+		Pbutton2 = new Button(700, 450, button, this);
+		Plever1 = new Lever(450, 530, leverL, this);
+		Plever2 = new Lever(650, 530, leverR, this);
 		PdoorE = new Platform(450, 0, doorE, this);
 		PdoorM = new Platform(700, 0, doorM, this);
+
 
 		addKeyListener(this);
 		setFocusable(true);
@@ -121,7 +123,60 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
 	{
-
+		Pfloor1a.floor(emily);
+		Pfloor1b.floor(emily);
+		Pfloor1c.floor(emily);			
+		Pfloor1d.floor(emily);
+		Pfloor2a.floor(emily);
+		Pfloor2b.floor(emily);
+		Pfloor2c.floor(emily);
+		Pfloor4a.floor(emily);
+		Pfloor6a.floor(emily);
+		Pfloor6b.floor(emily);
+		Pfloor8a.floor(emily);
+		Pfloor1a.ceiling(emily);
+		Pfloor1b.ceiling(emily);
+		Pfloor1c.ceiling(emily);
+		Pfloor1d.ceiling(emily);
+		Pfloor2a.ceiling(emily);
+		Pfloor2b.ceiling(emily);
+		Pfloor2c.ceiling(emily);
+		Pfloor4a.ceiling(emily);
+		Pfloor6a.ceiling(emily);
+		Pfloor6b.ceiling(emily);
+		Pfloor8a.ceiling(emily);
+		Pwall1a.wall(emily);
+		Pwall3a.wall(emily);
+		Pfloor1a.floor(maggie);
+		Pfloor1b.floor(maggie);
+		Pfloor1c.floor(maggie);
+		Pfloor1d.floor(maggie);
+		Pfloor2a.floor(maggie);
+		Pfloor2b.floor(maggie);
+		Pfloor2c.floor(maggie);
+		Pfloor4a.floor(maggie);
+		Pfloor6a.floor(maggie);
+		Pfloor6b.floor(maggie);
+		Pfloor8a.floor(maggie);
+		Pfloor1a.ceiling(maggie);
+		Pfloor1b.ceiling(maggie);
+		Pfloor1c.ceiling(maggie);
+		Pfloor1d.ceiling(maggie);
+		Pfloor2a.ceiling(maggie);
+		Pfloor2b.ceiling(maggie);
+		Pfloor2c.ceiling(maggie);
+		Pfloor4a.ceiling(maggie);
+		Pfloor6a.ceiling(maggie);
+		Pfloor6b.ceiling(maggie);
+		Pfloor8a.ceiling(maggie);
+		Pwall1a.wall(maggie);
+		Pwall3a.wall(maggie);
+		Plever2.flipped(emily, Plaser1a);
+		Plever1.flipped(maggie, Plaser1b);
+		Pbutton1.pressed(maggie, Plaser3a);
+		Pbutton1.pressed(emily, Plaser3a);
+		Pbutton2.pressed(maggie, Plaser3a);
+		Pbutton2.pressed(emily, Plaser3a);
 		repaint();
 	}//end action performed
 	public void keyTyped(KeyEvent e)
