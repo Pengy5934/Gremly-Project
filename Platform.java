@@ -56,9 +56,4 @@ public class Platform
 			}//end if
 		}//end if
 	}//end ceiling
-	public void lasergone()
-	{
-		platX = 2000;
-		platY = 2000;
-	}
-}//end CL
+}//end CLass
