@@ -31,15 +31,19 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Image background;
 	Image button, leverL, leverR;
 	Image doorE, doorM;
+
+	int timerTick = 0;
+	boolean jumping = false;
+	Container c;
 	public void init()
 	{
 		setContentPane(new DrawingPanel());
 		time = new Timer(10, this);
-
+		time.isRunning();
 		emilyStand = getImage(getDocumentBase(), "maggieStand.png");
-		emily = new Player(50, 40, 90, 80, emilyStand, "Emily");
+		emily = new Player(660, 735, 90, 80, emilyStand, "Emily");
 		maggieStand = getImage(getDocumentBase(), "maggieStand.png");
-		maggie = new Player(900, 400, 90, 80, maggieStand, "Maggie");
+		maggie = new Player(450, 735, 90, 80, maggieStand, "Maggie");
 		background = getImage(getDocumentBase(), "Background.png");
 		floor1a = getImage(getDocumentBase(), "floor1.png");
 		floor1b = getImage(getDocumentBase(), "floor1.png");
@@ -86,7 +90,6 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		PdoorE = new Platform(450, 0, doorE, this);
 		PdoorM = new Platform(700, 0, doorM, this);
 
-
 		addKeyListener(this);
 		setFocusable(true);
 	}//end init
@@ -95,7 +98,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			maggie.draw(g);
+
 			Pbackground.draw(g);
 			Pfloor1a.draw(g);
 			Pfloor1b.draw(g);
@@ -119,68 +122,82 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Plever2.draw(g);
 			PdoorE.draw(g);
 			PdoorM.draw(g);
+			//if (time.isRunning())
+			//{
+			maggie.draw(g);
+			emily.draw(g);
+			//}
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
 	{
-		Pfloor1a.floor(emily);
-		Pfloor1b.floor(emily);
-		Pfloor1c.floor(emily);			
-		Pfloor1d.floor(emily);
-		Pfloor2a.floor(emily);
-		Pfloor2b.floor(emily);
-		Pfloor2c.floor(emily);
-		Pfloor4a.floor(emily);
-		Pfloor6a.floor(emily);
-		Pfloor6b.floor(emily);
-		Pfloor8a.floor(emily);
-		Pfloor1a.ceiling(emily);
-		Pfloor1b.ceiling(emily);
-		Pfloor1c.ceiling(emily);
-		Pfloor1d.ceiling(emily);
-		Pfloor2a.ceiling(emily);
-		Pfloor2b.ceiling(emily);
-		Pfloor2c.ceiling(emily);
-		Pfloor4a.ceiling(emily);
-		Pfloor6a.ceiling(emily);
-		Pfloor6b.ceiling(emily);
-		Pfloor8a.ceiling(emily);
-		Pwall1a.wall(emily);
-		Pwall3a.wall(emily);
-		Pfloor1a.floor(maggie);
-		Pfloor1b.floor(maggie);
-		Pfloor1c.floor(maggie);
-		Pfloor1d.floor(maggie);
-		Pfloor2a.floor(maggie);
-		Pfloor2b.floor(maggie);
-		Pfloor2c.floor(maggie);
-		Pfloor4a.floor(maggie);
-		Pfloor6a.floor(maggie);
-		Pfloor6b.floor(maggie);
-		Pfloor8a.floor(maggie);
-		Pfloor1a.ceiling(maggie);
-		Pfloor1b.ceiling(maggie);
-		Pfloor1c.ceiling(maggie);
-		Pfloor1d.ceiling(maggie);
-		Pfloor2a.ceiling(maggie);
-		Pfloor2b.ceiling(maggie);
-		Pfloor2c.ceiling(maggie);
-		Pfloor4a.ceiling(maggie);
-		Pfloor6a.ceiling(maggie);
-		Pfloor6b.ceiling(maggie);
-		Pfloor8a.ceiling(maggie);
-		Pwall1a.wall(maggie);
-		Pwall3a.wall(maggie);
-		Plever2.flipped(emily, Plaser1a);
-		Plever1.flipped(maggie, Plaser1b);
-		Pbutton1.pressed(maggie, Plaser3a);
-		Pbutton1.pressed(emily, Plaser3a);
-		Pbutton2.pressed(maggie, Plaser3a);
-		Pbutton2.pressed(emily, Plaser3a);
+		//if (time.isRunning())
+		//{
+			Pfloor1a.floor(emily);
+			Pfloor1b.floor(emily);
+			Pfloor1c.floor(emily);
+			Pfloor1d.floor(emily);
+			Pfloor2a.floor(emily);
+			Pfloor2b.floor(emily);
+			Pfloor2c.floor(emily);
+			Pfloor4a.floor(emily);
+			Pfloor6a.floor(emily);
+			Pfloor6b.floor(emily);
+			Pfloor8a.floor(emily);
+			Pfloor1a.ceiling(emily);
+			Pfloor1b.ceiling(emily);
+			Pfloor1c.ceiling(emily);
+			Pfloor1d.ceiling(emily);
+			Pfloor2a.ceiling(emily);
+			Pfloor2b.ceiling(emily);
+			Pfloor2c.ceiling(emily);
+			Pfloor4a.ceiling(emily);
+			Pfloor6a.ceiling(emily);
+			Pfloor6b.ceiling(emily);
+			Pfloor8a.ceiling(emily);
+			Pwall1a.wall(emily);
+			Pwall3a.wall(emily);
+			Pfloor1a.floor(maggie);
+			Pfloor1b.floor(maggie);
+			Pfloor1c.floor(maggie);
+			Pfloor1d.floor(maggie);
+			Pfloor2a.floor(maggie);
+			Pfloor2b.floor(maggie);
+			Pfloor2c.floor(maggie);
+			Pfloor4a.floor(maggie);
+			Pfloor6a.floor(maggie);
+			Pfloor6b.floor(maggie);
+			Pfloor8a.floor(maggie);
+			Pfloor1a.ceiling(maggie);
+			Pfloor1b.ceiling(maggie);
+			Pfloor1c.ceiling(maggie);
+			Pfloor1d.ceiling(maggie);
+			Pfloor2a.ceiling(maggie);
+			Pfloor2b.ceiling(maggie);
+			Pfloor2c.ceiling(maggie);
+			Pfloor4a.ceiling(maggie);
+			Pfloor6a.ceiling(maggie);
+			Pfloor6b.ceiling(maggie);
+			Pfloor8a.ceiling(maggie);
+			Pwall1a.wall(maggie);
+			Pwall3a.wall(maggie);
+			Plever2.flipped(emily, Plaser1a);
+			Plever1.flipped(maggie, Plaser1b);
+			Pbutton1.pressed(maggie, Plaser3a);
+			Pbutton1.pressed(emily, Plaser3a);
+			Pbutton2.pressed(maggie, Plaser3a);
+			Pbutton2.pressed(emily, Plaser3a);
+		//}
 		repaint();
 	}//end action performed
 	public void keyTyped(KeyEvent e)
 	{
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			maggie.jump();
+			jumping = true;
+			repaint();
+		}//end if
 	}//end key typed
 	public void keyPressed(KeyEvent e)
 	{
@@ -197,10 +214,23 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		if (e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			maggie.jump();
+			jumping = true;
 			repaint();
 		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
 	{
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			maggie.stopRight();
+			//maggie.stand();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			maggie.stopLeft();
+			//maggie.stand();
+			repaint();
+		}//end if
 	}//end key released
 }//end public class
