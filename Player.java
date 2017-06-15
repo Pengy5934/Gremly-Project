@@ -13,10 +13,6 @@ public class Player implements ActionListener
 	Image playerStand;
 	Timer time;
 	Toolkit tk;
-	FinalDriver fd = new FinalDriver();
-	Image[] playerRight = new Image[8];
-	Image[] playerLeft = new Image[8];
-	Image[] playerJump = new Image[6];
 	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn, String name)
 	{
 		x = xIn;
