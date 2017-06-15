@@ -7,12 +7,16 @@ import java.awt.Toolkit;
 public class Player implements ActionListener
 {
 	int x, y, width, height, velox, veloy, speed, gameTimer = 0;
-	int frame = 1, frameHolder;
+	int frame = 1, frameHolder, veloX = 0, veloY = 0, jumpCount = 0;
 	String pictureName, playerName = "";
-	boolean canMoveUp = true, canMoveDown = false, canMoveLeft = true, canMoveRight = true, animateUp = false, animateDown = false, animateLeft = false, animateRight = false;
+	boolean canMoveUp = true, canMoveDown = true, canMoveLeft = true, canMoveRight = true, canFall = true;
 	Image playerStand;
 	Timer time;
 	Toolkit tk;
+	FinalDriver fd = new FinalDriver();
+	Image[] playerRight = new Image[8];
+	Image[] playerLeft = new Image[8];
+	Image[] playerJump = new Image[6];
 	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn, String name)
 	{
 		x = xIn;
@@ -23,15 +27,16 @@ public class Player implements ActionListener
 		playerName = name;
 		time = new Timer(10, this);
 		tk = Toolkit.getDefaultToolkit();
-
 	}//end constructor
 	public void draw(Graphics g)
 	{
-		if (canMoveUp == true && canMoveDown == false && animateRight == false && animateLeft == false)
+		x += veloX;
+		y += veloY;
+		if (veloX == 0 && veloY == 0)
 		{
 			g.drawImage(playerStand, x, y, null);
 		}//end if
-		if (canMoveUp == true && canMoveDown == false && animateRight == true && animateLeft == false)
+		if (veloX > 0 && veloY == 0)
 		{
 			String pictureName = playerName + "Right" + frame + ".png";
 			frame += 1;
@@ -42,16 +47,18 @@ public class Player implements ActionListener
 			}
 			else
 			{
-				g.drawImage(tk.getImage((playerName + "Right" + frameHolder + ".png")), x, y, null);
+				g.drawImage(tk.getImage(playerName + "Right" + frameHolder + ".png"), x, y, null);
 			}//end if
 			if (frame > 8)
 			{
 				frame = 1;
 			}//end if
+			System.out.println("right");
 			frameHolder = frame;
 		}//end walk right animation
-		if (canMoveUp == true && canMoveDown == false && animateRight == false && animateLeft == true)
+		if (veloX < 0 && veloY == 0)
 		{
+			System.out.println("Left");
 			String pictureName = playerName + "Left" + frame + ".png";
 			frame += 1;
 			gameTimer++;
@@ -69,18 +76,12 @@ public class Player implements ActionListener
 			}//end if
 			frameHolder = frame;
 		}//end left walking animation
-		if (canMoveUp == true && canMoveDown == true)
+		if (veloY > 0)
 		{
-			String pictureName = playerName + "Jump" + frame + ".png";
-			if (frame <= 5)
-				frame++;
-			if (frame == 6)
-			{
-				frame = 1;
-				canMoveDown = false;
-			}//end if
+			System.out.println("jump");
+			String pictureName = playerName + "Jump5.png";
 			g.drawImage(tk.getImage(pictureName), x, y, null);
-		}//end jump animation
+		}//end fall animation
 	}//end draw
 	public void actionPerformed(ActionEvent e)
 	{
@@ -90,50 +91,52 @@ public class Player implements ActionListener
 	{
 		if (canMoveLeft)
 		{
-			x -= 10;
-			animateLeft = true;
-			animateRight = false;
+			veloX = -10;
 		}//end if
 	}//end run Left
 	public void walkRight()
 	{
 		if (canMoveRight)
 		{
-			x += 10;
-			animateRight = true;
-			animateLeft = false;
+			veloX = 10;
 		}//end if
 	}//end walk right
 	public void jump()
 	{
 		if (canMoveUp)
 		{
-			y -= 2;
-			canMoveDown = true;
+			veloY = 20 - jumpCount;
+			jumpCount++;
+		}//end if
+		if (jumpCount == 20)
+		{
+			jumpCount = 0;
+			fd.endJump();
 		}//end if
 	}//end jump
 	public void fall()
 	{
 		if (canMoveDown)
 		{
-			y += 2;
+			veloY = 4;
 		}//end if
 	}//end fall
 	public void stopDown()
 	{
+		veloY = 0;
 		canMoveDown = false;
 	}//end stop down
 	public void stopUp()
 	{
-		canMoveUp = false;
+		veloY = 0;
 	}//end stop up
 	public void stopLeft()
 	{
-		canMoveLeft = false;
+		veloX = 0;
 	}//end stop left
 	public void stopRight()
 	{
-		canMoveRight = false;
+		veloX = 0;
 	}//end stop right
 	public void moveUp(int m)
 	{
@@ -151,9 +154,6 @@ public class Player implements ActionListener
 	{
 		x -= m;
 	}//end move left
-	public void thrust()
-	{
-	}//end thrust
 	public int getX()
 	{
 		return x;
