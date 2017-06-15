@@ -87,9 +87,24 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			jumping = true;
 			repaint();
 		}//end if
+		
+		if (e.getKeyCode() == KeyEvent.VK_A)
+		{
+			emily.walkLeft();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_D)
+		{
+			emily.walkRight();
+			repaint();
+		}//end if
 		if (e.getKeyCode() == KeyEvent.VK_U)
 		{
 			time.stop();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_Y)
+		{
+			time.start();
 		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
@@ -102,6 +117,17 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
 			maggie.stopLeft();
+			repaint();
+		}//end if
+		
+		if (e.getKeyCode() == KeyEvent.VK_A)
+		{
+			emily.stopLeft();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_D)
+		{
+			emily.stopRight();
 			repaint();
 		}//end if
 	}//end key released
