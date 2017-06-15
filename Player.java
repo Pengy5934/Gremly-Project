@@ -13,6 +13,7 @@ public class Player implements ActionListener
 	Image playerStand;
 	Timer time;
 	Toolkit tk;
+	FinalDriver fd = new FinalDriver();
 	public Player(int xIn, int yIn, int widthIn, int heightIn, Image imgIn, String name)
 	{
 		x = xIn;
@@ -72,12 +73,21 @@ public class Player implements ActionListener
 			}//end if
 			frameHolder = frame;
 		}//end left walking animation
-		if (veloY > 0)
+		if (veloY < 0)
 		{
 			System.out.println("jump");
 			String pictureName = playerName + "Jump5.png";
 			g.drawImage(tk.getImage(pictureName), x, y, null);
+			veloY++;
+			if (veloY == 0)
+				veloY += 2;
 		}//end fall animation
+		if (veloY > 0)
+		{
+			String pictureName = playerName + "Jump5.png";
+			g.drawImage(tk.getImage(pictureName), x, y, null);
+			veloY++;
+		}//end if
 	}//end draw
 	public void actionPerformed(ActionEvent e)
 	{
@@ -101,13 +111,7 @@ public class Player implements ActionListener
 	{
 		if (canMoveUp)
 		{
-			veloY = 20 - jumpCount;
-			jumpCount++;
-		}//end if
-		if (jumpCount == 20)
-		{
-			jumpCount = 0;
-			fd.endJump();
+			veloY = -10;
 		}//end if
 	}//end jump
 	public void fall()
@@ -167,3 +171,4 @@ public class Player implements ActionListener
 		return height;
 	}//end get height
 }//end class
+
