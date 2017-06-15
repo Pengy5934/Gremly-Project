@@ -57,6 +57,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			bottom.floor(maggie);
 			midair.floor(maggie);
 			midair2.floor(maggie);
+			midair.ceiling(maggie);
+			midair2.ceiling(maggie);
 			if (jumping == false)
 			{
 				maggie.fall();
@@ -85,19 +87,26 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			jumping = true;
 			repaint();
 		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_U)
+		{
+			time.stop();
+		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
 	{
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
 			maggie.stopRight();
-			maggie.stand();
 			repaint();
 		}//end if
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
 			maggie.stopLeft();
-			maggie.stand();
 			repaint();
 		}//end if
 	}//end key released
+	public void endJump()
+	{
+		jumping = false;
+	}
+}//end public class
