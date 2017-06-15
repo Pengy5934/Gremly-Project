@@ -20,13 +20,11 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		c = getContentPane();
 		time = new Timer(100, this);
 
-		emilyStand = getImage(getDocumentBase(), "maggieStand.png");
-		emily = new Player(50, 40, 90, 80, emilyStand, "Emily");
+		emilyStand = getImage(getDocumentBase(), "emilyStand.png");
+		emily = new Player(50, 600, 90, 80, emilyStand, "Emily");
 		maggieStand = getImage(getDocumentBase(), "maggieStand.png");
 		maggie = new Player(900, 600, 90, 80, maggieStand, "Maggie");
-		bottom = new Platform(0, 900, 1300, 50);
-		midair = new Platform(700, 700, 200, 30);
-		midair2 = new Platform(500, 700, 200, 30);
+		bottom = new Platform(0, 820, getImage(getDocumentBase(), "floor8.png"), this);
 		location = new JLabel(maggie.getX() + ", " + maggie.getY());
 		c.add(location);
 
@@ -41,10 +39,9 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			super.paintComponent(g);
 
 			bottom.draw(g);
-			midair.draw(g);
-			midair2.draw(g);
 
 			maggie.draw(g);
+			emily.draw(g);
 
 		}//end paint component
 	}//end drawing panel
@@ -55,15 +52,13 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			timerTick++;
 			location.setText(maggie.getX() + ", " + maggie.getY() + ", " + timerTick);
 			bottom.floor(maggie);
-			midair.floor(maggie);
-			midair2.floor(maggie);
-			midair.ceiling(maggie);
-			midair2.ceiling(maggie);
+			bottom.floor(emily);
 			if (jumping == false)
 			{
 				maggie.fall();
+				emily.fall();
 			}//end if
-		}
+		}//end if
 		repaint();
 	}//end action performed
 	public void keyTyped(KeyEvent e)
@@ -87,7 +82,6 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			jumping = true;
 			repaint();
 		}//end if
-		
 		if (e.getKeyCode() == KeyEvent.VK_A)
 		{
 			emily.walkLeft();
@@ -96,6 +90,11 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		if (e.getKeyCode() == KeyEvent.VK_D)
 		{
 			emily.walkRight();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_W)
+		{
+			emily.jump();
 			repaint();
 		}//end if
 		if (e.getKeyCode() == KeyEvent.VK_U)
@@ -119,7 +118,6 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			maggie.stopLeft();
 			repaint();
 		}//end if
-		
 		if (e.getKeyCode() == KeyEvent.VK_A)
 		{
 			emily.stopLeft();
