@@ -115,7 +115,8 @@ public class Player implements ActionListener
 	{
 		if (canMoveDown)
 		{
-			veloY = 4;
+			veloY += 4;
+
 		}//end if
 	}//end fall
 	public void notColliding()
@@ -125,6 +126,10 @@ public class Player implements ActionListener
 	public void canJump()
 	{
 		canMoveUp = true;
+	}
+	public void noJump()
+	{
+		canMoveUp = false;
 	}
 	public void stopDown()
 	{
