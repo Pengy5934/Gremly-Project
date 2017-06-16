@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -8,7 +7,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Timer time;
 	Player emily;
 	Player maggie;
-	Platform Pwall1a, Pwall3a;
+	Platform Pwall1a, Pwall3a, Pwall7a, Pwall7b;
 	Laser Plaser1a, Plaser1b, Plaser3a;
 	Platform Pfloor1a, Pfloor1b, Pfloor1c, Pfloor1d;
 	Platform Pfloor2a, Pfloor2b, Pfloor2c;
@@ -21,7 +20,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Platform Pbackground;
 	Image maggieStand;
 	Image emilyStand;
-	Image wall1a, wall3a;
+	Image wall1a, wall3a, wall7a, wall7b;
 	Image floor1a, floor1b, floor1c, floor1d;
 	Image floor2a, floor2b, floor2c;
 	Image floor4a;
@@ -37,10 +36,11 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 	Container c;
 	public void init()
 	{
+		setSize(1200,840);
 		setContentPane(new DrawingPanel());
-		time = new Timer(10, this);
-		time.isRunning();
-		emilyStand = getImage(getDocumentBase(), "maggieStand.png");
+		time = new Timer(50, this);
+
+		emilyStand = getImage(getDocumentBase(), "emilyStand.png");
 		emily = new Player(660, 735, 90, 80, emilyStand, "Emily");
 		maggieStand = getImage(getDocumentBase(), "maggieStand.png");
 		maggie = new Player(450, 735, 90, 80, maggieStand, "Maggie");
@@ -58,6 +58,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		floor8a = getImage(getDocumentBase(), "floor8.png");
 		wall1a = getImage(getDocumentBase(), "brickwall1.png");
 		wall3a = getImage(getDocumentBase(), "brickwall3.png");
+		wall7a = getImage(getDocumentBase(), "brickwall7.png");
+		wall7b = getImage(getDocumentBase(), "brickwall7.png");
 		laser1a = getImage(getDocumentBase(), "laserwall1.png");
 		laser1b = getImage(getDocumentBase(), "laserwall1.png");
 		laser3a = getImage(getDocumentBase(), "laserwall3.png");
@@ -80,6 +82,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 		Pfloor8a = new Platform(0, 820, floor8a, this);
 		Pwall1a = new Platform(590, 0, wall1a,this);
 		Pwall3a = new Platform(590, 480, wall3a,this);
+		Pwall7a = new Platform(-20, 0, wall7a,this);
+		Pwall7b = new Platform(1200 , 0, wall7b,this);
 		Plaser1a = new Laser(150, 480, laser1a, this);
 		Plaser1b = new Laser(1030, 480, laser1b, this);
 		Plaser3a = new Laser(590, 120, laser3a, this);
@@ -92,6 +96,7 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 
 		addKeyListener(this);
 		setFocusable(true);
+		time.start();
 	}//end init
 	public class DrawingPanel extends JPanel
 	{
@@ -113,6 +118,8 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Pfloor8a.draw(g);
 			Pwall1a.draw(g);
 			Pwall3a.draw(g);
+			Pwall7a.draw(g);
+			Pwall7b.draw(g);
 			Plaser1a.draw(g);
 			Plaser1b.draw(g);
 			Plaser3a.draw(g);
@@ -122,41 +129,63 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Plever2.draw(g);
 			PdoorE.draw(g);
 			PdoorM.draw(g);
-			//if (time.isRunning())
-			//{
-			maggie.draw(g);
+            maggie.draw(g);
 			emily.draw(g);
-			//}
 		}//end paint component
 	}//end drawing panel
 	public void actionPerformed(ActionEvent e)
 	{
-		//if (time.isRunning())
-		//{
-			Pfloor1a.floor(emily);
-			Pfloor1b.floor(emily);
-			Pfloor1c.floor(emily);
-			Pfloor1d.floor(emily);
-			Pfloor2a.floor(emily);
-			Pfloor2b.floor(emily);
-			Pfloor2c.floor(emily);
-			Pfloor4a.floor(emily);
-			Pfloor6a.floor(emily);
-			Pfloor6b.floor(emily);
-			Pfloor8a.floor(emily);
-			Pfloor1a.ceiling(emily);
-			Pfloor1b.ceiling(emily);
-			Pfloor1c.ceiling(emily);
-			Pfloor1d.ceiling(emily);
-			Pfloor2a.ceiling(emily);
-			Pfloor2b.ceiling(emily);
-			Pfloor2c.ceiling(emily);
-			Pfloor4a.ceiling(emily);
-			Pfloor6a.ceiling(emily);
-			Pfloor6b.ceiling(emily);
-			Pfloor8a.ceiling(emily);
+		timerTick++;
+		if (time.isRunning())
+		{
+			emily.getY();
+
+			if (720 < emily.getY() && emily.getY() <= 840)
+			{
+				Pfloor8a.floor(emily);
+				Pfloor6b.ceiling(emily);
+			}
+			else if (600 < emily.getY() && emily.getY() <= 720)
+			{
+				Pfloor6b.floor(emily);
+				Pfloor2a.ceiling(emily);
+				Pfloor2b.ceiling(emily);
+				Pfloor2c.ceiling(emily);
+			}
+			else if (480 < emily.getY() && emily.getY() <= 600)
+			{
+				Pfloor2a.floor(emily);
+				Pfloor2b.floor(emily);
+				Pfloor2c.floor(emily);
+				Pfloor6a.ceiling(emily);
+			}
+			else if (360 < emily.getY() && emily.getY() <= 480)
+			{
+				Pfloor6a.floor(emily);
+				Pfloor1c.ceiling(emily);
+				Pfloor1d.ceiling(emily);
+			}
+			else if (240 < emily.getY() && emily.getY() <= 360)
+			{
+				Pfloor1c.floor(emily);
+				Pfloor1d.floor(emily);
+				Pfloor1a.ceiling(emily);
+				Pfloor1b.ceiling(emily);
+			}
+			else if (120 < emily.getY() && emily.getY() <= 240)
+			{
+				Pfloor1a.floor(emily);
+				Pfloor1b.floor(emily);
+				Pfloor4a.ceiling(emily);
+			}
+			else if (0 < emily.getY() && emily.getY() <= 120)
+			{
+				Pfloor4a.floor(emily);
+			}
 			Pwall1a.wall(emily);
 			Pwall3a.wall(emily);
+			Pwall7a.wall(emily);
+			Pwall7a.wall(emily);
 			Pfloor1a.floor(maggie);
 			Pfloor1b.floor(maggie);
 			Pfloor1c.floor(maggie);
@@ -168,68 +197,99 @@ public class FinalDriver extends JApplet implements ActionListener, KeyListener
 			Pfloor6a.floor(maggie);
 			Pfloor6b.floor(maggie);
 			Pfloor8a.floor(maggie);
+			Pwall1a.wall(maggie);
+			Pwall3a.wall(maggie);
+			Pwall7a.wall(maggie);
+			Pwall7b.wall(maggie);
 			Pfloor1a.ceiling(maggie);
 			Pfloor1b.ceiling(maggie);
 			Pfloor1c.ceiling(maggie);
 			Pfloor1d.ceiling(maggie);
-			Pfloor2a.ceiling(maggie);
-			Pfloor2b.ceiling(maggie);
-			Pfloor2c.ceiling(maggie);
 			Pfloor4a.ceiling(maggie);
 			Pfloor6a.ceiling(maggie);
 			Pfloor6b.ceiling(maggie);
-			Pfloor8a.ceiling(maggie);
-			Pwall1a.wall(maggie);
-			Pwall3a.wall(maggie);
-			Plever2.flipped(emily, Plaser1a);
-			Plever1.flipped(maggie, Plaser1b);
-			Pbutton1.pressed(maggie, Plaser3a);
-			Pbutton1.pressed(emily, Plaser3a);
-			Pbutton2.pressed(maggie, Plaser3a);
-			Pbutton2.pressed(emily, Plaser3a);
-		//}
-		repaint();
+
+
+
+
+			if (jumping == false)
+			{
+				maggie.fall();
+				emily.fall();
+			}//end if
+		}//end if
+	repaint();
 	}//end action performed
 	public void keyTyped(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_UP)
+		if (e.getKeyCode() == KeyEvent.VK_W)
 		{
 			maggie.jump();
+			jumping = true;
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			emily.jump();
 			jumping = true;
 			repaint();
 		}//end if
 	}//end key typed
 	public void keyPressed(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		if (e.getKeyCode() == KeyEvent.VK_D)
 		{
 			maggie.walkRight();
 			repaint();
 		}//end if
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		if (e.getKeyCode() == KeyEvent.VK_A)
 		{
 			maggie.walkLeft();
 			repaint();
 		}//end if
-		if (e.getKeyCode() == KeyEvent.VK_UP)
+		if (e.getKeyCode() == KeyEvent.VK_W)
 		{
 			maggie.jump();
+			jumping = true;
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			emily.walkRight();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			emily.walkLeft();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			emily.jump();
 			jumping = true;
 			repaint();
 		}//end if
 	}//end key pressed
 	public void keyReleased(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		if (e.getKeyCode() == KeyEvent.VK_D)
 		{
 			maggie.stopRight();
-			//maggie.stand();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_A)
+		{
+			maggie.stopLeft();
+			repaint();
+		}//end if
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			emily.stopRight();
 			repaint();
 		}//end if
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
-			maggie.stopLeft();
-			//maggie.stand();
+			emily.stopLeft();
 			repaint();
 		}//end if
 	}//end key released
