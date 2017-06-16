@@ -37,18 +37,20 @@ public class Platform
 			 player.fall();
 		 }
 	}//end floor
-	//public void wall(Player playerImport)
-	//{
-	//	player = playerImport;
-	//	if (player.getY() + player.getHeight() > platY && player.getY() < platY + i.getHeight(fd))
-	//	{
-	//		if (player.getX() <= platX + i.getWidth(fd) && player.getX() >= platX)
-	//		{
-	//			player.stopLeft();
-	//			player.moveLeft((platX + i.getWidth(fd)) + player.getX());
-	//		}//end if
-	//	}//end if
-	//}//end wall
+	public void wall(Player playerImport)
+	{
+		player = playerImport;
+		if (player.getY() + player.getHeight() > platY && player.getY() < platY + i.getHeight(fd))
+		{
+			if (player.getX() <= platX + i.getWidth(fd) && player.getX() >= platX)
+			{
+				player.stopLeft();
+				player.moveLeft((platX + i.getWidth(fd)) - player.getX());
+				//player.stopRight();
+				//player.moveRight((platX + i.getWidth(fd)) - player.getX());
+			}//end if
+		}//end if
+	}//end wall
 	public void ceiling(Player playerImport)
 	{
 		player = playerImport;
